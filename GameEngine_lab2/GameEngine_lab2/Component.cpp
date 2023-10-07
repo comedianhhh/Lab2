@@ -14,6 +14,7 @@ void Component::initialize()
 }
 void Component::Destory()
 {
+	delete this;
 	std::cout << "Component Destroyed" << std::endl;
 }
 int Component::GetComponentId()
@@ -26,4 +27,8 @@ void Component::Update()
 	
 	std::cout << "Component Updated" << std::endl;
 
+}
+void Component::Load()
+{
+	std::cout << "Component Loaded" << std::endl;
 }

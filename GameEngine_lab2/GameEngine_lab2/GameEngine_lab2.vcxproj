@@ -131,7 +131,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameEngine_lab2.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RenderSystem.cpp" />

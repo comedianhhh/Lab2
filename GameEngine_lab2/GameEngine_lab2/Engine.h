@@ -8,9 +8,9 @@
 class Engine
 {
 private:
-	RenderSystem* renderer;
-	InputManager* input;
-	AssetManager* assets;
+	RenderSystem* renderSystem;
+	InputManager* inputManager;
+	AssetManager* assetManager;
 	SceneManager* sceneManager;
 public:
 	Engine();
@@ -19,8 +19,8 @@ public:
 	void Initialize();
 	void Destroy();
 
-	//int width;
-	//int height;
+	void GameLoop();
+	void Load();
 
 };
 #endif // !_ENGINE_H_
