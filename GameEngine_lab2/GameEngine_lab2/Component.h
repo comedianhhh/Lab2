@@ -15,7 +15,7 @@ public:
 
 		int GetComponentId();
 		void Update();
-		void Load();
+		void Load(json::JSON& cData);
 };
 #endif // !_COMPONENT_H_
 

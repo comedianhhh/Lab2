@@ -1,5 +1,7 @@
 #include "Entity.h"
-
+#include "Component.h"
+#include <iostream>
+#include "json.hpp"
 Entity::Entity() {
 	name = "Default Entity";
 	std::cout << "Entity created" << std::endl;
@@ -40,6 +42,24 @@ std::string& Entity::GetName() {
 	return name;
 }
 
-void Entity::Load() {
-	// Load entity data
+void Entity::Load(json::JSON& eData)
+{
+	if (eData.hasKey("name")) 
+	{
+		std::string name = eData["name"].ToString();
+	}
+	// Load components
+	if (eData.hasKey("components")) {
+
+		json::JSON components = eData["components"];
+
+		for (auto& comp : components.ArrayRange()) {
+
+			Component* c = new Component();
+
+			c->Load(comp);
+
+			AddComponent(c);
+		}
+	}
 }

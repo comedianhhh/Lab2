@@ -20,7 +20,7 @@ public:
 	void RemoveComponent(Component* component);
 	void Update();
 	std::string& GetName();
-	void Load();
+	void Load(json::JSON& eData);
 
 	
 };

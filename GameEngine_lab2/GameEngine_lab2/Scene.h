@@ -15,7 +15,7 @@ public:
 	void Update();
 	void AddEntity(Entity* entity);
 	void RemoveEntity(Entity* entity);
-	void Load();
+	void Load(json::JSON& sceneData);
 };
 
 #endif // !_SCENE_H_
