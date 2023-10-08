@@ -1,5 +1,6 @@
 #include "Component.h"
 #include <iostream>
+#include "json.hpp"
 Component::Component()
 {
 	std::cout << "Component Created" << std::endl;
@@ -28,7 +29,7 @@ void Component::Update()
 	std::cout << "Component Updated" << std::endl;
 
 }
-void Component::Load()
+void Component::Load(json::JSON& eData)
 {
 	std::cout << "Component Loaded" << std::endl;
 }

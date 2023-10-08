@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "AssetManager.h"
 #include "SceneManager.h"
+#include <fstream>
 class Engine
 {
 private:
@@ -20,7 +21,7 @@ public:
 	void Destroy();
 
 	void GameLoop();
-	void Load();
+	void Load(std::ifstream& inputStream);
 
 };
 #endif // !_ENGINE_H_

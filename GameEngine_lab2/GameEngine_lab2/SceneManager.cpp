@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 #include <iostream>
+#include "json.hpp"
+
 SceneManager::SceneManager()
 {
 	std::cout << "SceneManager created" << std::endl;
@@ -35,7 +37,12 @@ void SceneManager::RemoveScene(Scene* scene)
 {
 	scenes.remove(scene);
 }
-void SceneManager::Load()
+void SceneManager::Load(json::JSON& sSystem)
 {
-	// Load scene data
+
+	Scene* newScene = new Scene();
+	newScene->Load(sSystem);
+	AddScene(newScene);
+	
+
 }

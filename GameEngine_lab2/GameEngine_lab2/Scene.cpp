@@ -1,5 +1,7 @@
 #include "Scene.h"
 #include <iostream>
+#include "json.hpp"
+
 Scene::Scene()
 {
 	std::cout << "Scene Created" << std::endl;
@@ -35,7 +37,19 @@ void Scene::RemoveEntity(Entity* entity)
 {
 	entities.remove(entity);
 }
-void Scene::Load()
+void Scene::Load(json::JSON& sData)
 {
-	//TODO: Load scene data
+	if (sData.hasKey("name")) 
+	{
+		std::cout << "scene 1" << "\n";
+	}
+
+	json::JSON entities = sData["Entities"];
+
+	for (auto& entity : entities.ArrayRange()) {
+
+		Entity* e = new Entity();
+
+		e->Load(entity);
+	}
 }
