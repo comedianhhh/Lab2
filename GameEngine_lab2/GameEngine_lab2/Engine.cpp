@@ -24,10 +24,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-	renderSystem->Destroy();
-	inputManager->Destroy();
-	assetManager->Destroy();
-	sceneManager->Destroy();
+
 	Destroy();
 
 	std::cout << "Engine Destroyed" << std::endl;

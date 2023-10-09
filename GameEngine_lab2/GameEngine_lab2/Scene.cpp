@@ -41,7 +41,7 @@ void Scene::Load(json::JSON& sData)
 {
 	if (sData.hasKey("name")) 
 	{
-		std::cout << "scene 1" << "\n";
+		std::cout << "scene 1" << std::endl;
 	}
 
 	json::JSON entities = sData["Entities"];

@@ -18,7 +18,7 @@ void Entity::Initialize() {
 
 void Entity::Destroy() {
 	for (Component* comp : components) {
-		comp->Destory();
+		delete comp;
 	}
 	components.clear();
 	std::cout << name << " destroyed" << std::endl;
