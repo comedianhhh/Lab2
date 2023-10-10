@@ -7,7 +7,7 @@ Object::Object()
 Object::~Object()
 {
 	Destroy();
-	std::cout << "Object Destroyed" << std::endl;
+	std::cout << "Object Destructed" << std::endl;
 }
 void Object::Initialize()
 {
@@ -16,7 +16,6 @@ void Object::Initialize()
 
 void Object::Destroy()
 {
-	delete this;
 	std::cout << "Object Destroyed" << std::endl;
 }
 bool Object::isInitialized()

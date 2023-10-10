@@ -8,7 +8,7 @@
 class Entity {
 private:
 	std::list<Component*> components;
-	std::string name;
+	std::string name="";
 public:
 	Entity();
 	~Entity();

@@ -7,7 +7,7 @@ AssetManager::AssetManager()
 AssetManager::~AssetManager()
 {
 	Destroy();
-	std::cout << "AssetManager Destroyed" << std::endl;
+	std::cout << "AssetManager Destructed" << std::endl;
 }
 void AssetManager::Initialize()
 {

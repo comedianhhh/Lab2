@@ -1,6 +1,8 @@
 #include "RenderSystem.h"
 #include <iostream>
 #include <SDL.h>
+#include"SDL_image.h"
+
 RenderSystem::RenderSystem()
 {
 	std::cout << "RenderSystem Created" << std::endl;
@@ -12,29 +14,49 @@ RenderSystem::~RenderSystem()
 }
 void RenderSystem::Initialize()
 {
-
-	SDL_Window* window = SDL_CreateWindow("Render Window",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		width,
-		height,
-		fullScreen ? SDL_WINDOW_FULLSCREEN : 0);
-
-	if (window == nullptr) {
-		std::cout << "Failed to create SDL window: " << SDL_GetError() << std::endl;
-		// Handle error
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+	// Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
+		// Handle initialization error
 		return;
 	}
-	SDL_DestroyWindow(window);
 
-	SDL_Quit();
+	// Initialize SDL_image
+	int imgFlags = IMG_INIT_PNG;
+	if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
+		std::cout << "Failed to initialize SDL_image: " << IMG_GetError() << std::endl;
+		// Handle initialization error
+		return;
+	}
 
-	std::cout << "RenderSystem Initialized" << std::endl;
+	// Create SDL window
+	window = SDL_CreateWindow("SDL Example",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		height,
+		width,
+		0);
+	if (!window) {
+		std::cout << "Failed to create SDL window: " << SDL_GetError() << std::endl;
+		// Handle window creation error
+		return;
+	}
+
+	// Create SDL renderer
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (!renderer) {
+		std::cout << "Failed to create SDL renderer: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	std::cout << "RenderSystem Initialized"<< std::endl;
 }
 void RenderSystem::Destroy()
 {
 
-	std::cout << "RenderSystem Destroyed" << std::endl;
+	std::cout << "RenderSystem Destructed" << std::endl;
 }
 void RenderSystem::Update()
 {
@@ -52,20 +74,20 @@ void RenderSystem::Load(json::JSON& rSystem)
 		name = rSystem["Name"].ToString();
 		std::cout << "Name: " << name << std::endl;
 	}
-	if (rSystem.hasKey("Width"))
+	if (rSystem.hasKey("width"))
 	{
-		width = rSystem["Width"].ToInt();
-		std::cout << "Width: " << width << std::endl;
+		width = rSystem["width"].ToInt();
+		std::cout << "width: " << width << std::endl;
 	}
-	if (rSystem.hasKey("Height"))
+	if (rSystem.hasKey("height"))
 	{
-		height = rSystem["Height"].ToInt();
-		std::cout << "Height: " << height << std::endl;
+		height = rSystem["height"].ToInt();
+		std::cout << "height: " << height << std::endl;
 	}
-	if (rSystem.hasKey("Fullscreen"))
+	if (rSystem.hasKey("fullscreen"))
 	{
-		fullScreen = rSystem["Fullscreen"].ToBool();
-		std::cout << "Fullscreen: " << fullScreen << std::endl;
+		fullScreen = rSystem["fullscreen"].ToBool();
+		std::cout << "fullscreen: " << fullScreen << std::endl;
 	}
-	std::cout << "RenderSystem Loaded" << std::endl;
+	std::cout << "**************RenderSystem Loaded************" << std::endl;
 }

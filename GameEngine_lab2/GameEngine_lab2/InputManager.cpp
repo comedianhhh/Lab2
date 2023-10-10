@@ -8,7 +8,7 @@ InputManager::InputManager()
 InputManager::~InputManager()
 {
 	Destroy();
-	std::cout << "InputManager Destroyed" << std::endl;
+	std::cout << "InputManager Destructed" << std::endl;
 }
 void InputManager::Initialize()
 {

@@ -9,11 +9,11 @@ Entity::Entity() {
 
 Entity::~Entity() {
 	Destroy();
-	std::cout << "Entity destroyed" << std::endl;
+	std::cout << "Entity Destructed" << std::endl;
 }
 
 void Entity::Initialize() {
-	std::cout << name << " initialized" << std::endl;
+	std::cout << "Entity initialized" << std::endl;
 }
 
 void Entity::Destroy() {
@@ -21,11 +21,12 @@ void Entity::Destroy() {
 		delete comp;
 	}
 	components.clear();
-	std::cout << name << " destroyed" << std::endl;
+	std::cout<< "Entity destroyed" << std::endl;
 }
 
 void Entity::AddComponent(Component* component) {
 	components.push_back(component);
+	std::cout<< "Entity added component" << std::endl;
 }
 
 void Entity::RemoveComponent(Component* component) {
@@ -36,6 +37,7 @@ void Entity::Update() {
 	for (Component* comp : components) {
 		comp->Update();
 	}
+	std::cout << name << "Entity updated" << std::endl;
 }
 
 std::string& Entity::GetName() {
@@ -46,20 +48,22 @@ void Entity::Load(json::JSON& eData)
 {
 	if (eData.hasKey("name")) 
 	{
+		std::cout << "---------------------------" << std::endl;
 		std::string name = eData["name"].ToString();
 	}
 	// Load components
-	if (eData.hasKey("components")) {
+	if (eData.hasKey("Components"))
+	{
+		json::JSON components = eData["Components"];
 
-		json::JSON components = eData["components"];
-
-		for (auto& comp : components.ArrayRange()) {
-
-			Component* c = new Component();
-
-			c->Load(comp);
-
-			AddComponent(c);
+		for (auto& component : components.ArrayRange())
+		{
+			if (component.hasKey("className") && component.hasKey("id"))
+			{
+				Component* newComponent = new Component();
+				newComponent->Load(component);
+				AddComponent(newComponent);
+			}
 		}
 	}
 }

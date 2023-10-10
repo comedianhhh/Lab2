@@ -9,7 +9,7 @@ SceneManager::SceneManager()
 SceneManager::~SceneManager()
 {
 	Destroy();
-	std::cout << "SceneManager destroyed" << std::endl;
+	std::cout << "SceneManager Destructed" << std::endl;
 }
 void SceneManager::Initialize()
 {
@@ -21,7 +21,7 @@ void SceneManager::Destroy()
 		delete scene;
 	}
 	scenes.clear();
-	std::cout << "SceneManager destroyed" << std::endl;
+	std::cout << "SceneManager Destroyed" << std::endl;
 }
 void SceneManager::Update()
 {
@@ -36,13 +36,21 @@ void SceneManager::AddScene(Scene* scene)
 void SceneManager::RemoveScene(Scene* scene)
 {
 	scenes.remove(scene);
+	delete scene;
+	scene = NULL;
 }
 void SceneManager::Load(json::JSON& sSystem)
 {
+	if (sSystem.hasKey("SceneManager"))
+	{
+		json::JSON scenes = sSystem["SceneManager"];
 
-	Scene* newScene = new Scene();
-	newScene->Load(sSystem);
-	AddScene(newScene);
-	
-
+		for (auto& scene : scenes.ArrayRange())
+		{
+			Scene* newScene = new Scene();
+			newScene->Load(scene);
+			AddScene(newScene);
+		}
+	}
+	std::cout<<"SceneManager Loaded"<<std::endl;
 }

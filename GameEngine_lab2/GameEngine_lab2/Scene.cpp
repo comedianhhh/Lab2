@@ -9,7 +9,7 @@ Scene::Scene()
 Scene::~Scene()
 {
 	Destroy();
-	std::cout << "Scene Destroyed" << std::endl;
+	std::cout << "Scene Destructed" << std::endl;
 }
 void Scene::Initialize()
 {
@@ -28,6 +28,7 @@ void Scene::Update()
 	for (Entity* entity : entities) {
 		entity->Update();
 	}
+	std::cout << "Scene Updated" << std::endl;
 }
 void Scene::AddEntity(Entity* entity)
 {
@@ -39,17 +40,24 @@ void Scene::RemoveEntity(Entity* entity)
 }
 void Scene::Load(json::JSON& sData)
 {
-	if (sData.hasKey("name")) 
+	if (sData.hasKey("Entities"))
 	{
-		std::cout << "scene 1" << std::endl;
+		json::JSON entities = sData["Entities"];
+
+		for (auto& entity : entities.ArrayRange())
+		{
+			if (entity.hasKey("Name"))
+			{
+				std::string name = entity["Name"].ToString();
+				std::cout << "Entity Name: " << name << std::endl;
+
+				Entity* newEntity = new Entity();
+				newEntity->Load(entity); 
+
+				AddEntity(newEntity);
+			}
+		}
 	}
+	std::cout<< "Scene Loaded" << std::endl;
 
-	json::JSON entities = sData["Entities"];
-
-	for (auto& entity : entities.ArrayRange()) {
-
-		Entity* e = new Entity();
-
-		e->Load(entity);
-	}
 }

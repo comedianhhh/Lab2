@@ -6,10 +6,10 @@
 class RenderSystem
 {
 private:
-	std::string name;
-	int width;
-	int height;
-	bool fullScreen;
+	std::string name="";
+	int width=0;
+	int height=0;
+	bool fullScreen=false;
 public:
 	RenderSystem();
 	~RenderSystem();

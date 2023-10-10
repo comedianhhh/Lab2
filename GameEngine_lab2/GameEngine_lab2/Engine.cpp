@@ -13,51 +13,49 @@
 #include "Scene.h"
 #include "json.hpp"
 
-Engine::Engine()
+Engine::Engine():renderSystem(new RenderSystem()),inputManager(new InputManager()),assetManager(new AssetManager()),sceneManager(new SceneManager())
 {
-	renderSystem = nullptr;
-	inputManager = nullptr;
-	assetManager = nullptr;
-	sceneManager = nullptr;
 	std::cout<<	"Engine Created"<<std::endl;
 }
 
 Engine::~Engine()
 {
-
-	Destroy();
-
-	std::cout << "Engine Destroyed" << std::endl;
+	std::cout << "Engine Destructed" << std::endl;
 }
 void Engine::Initialize() 
 {
+	std::ifstream inputStream("GameSettings.json");
+	Load(inputStream);
+	std::ifstream levelStream("GameLevelExample.json");
+	Load(levelStream);
+
 	renderSystem->Initialize();
 	inputManager->Initialize();
 	assetManager->Initialize();
 	sceneManager->Initialize();
 
-	std::ifstream inputStream("GameSettings.json");
-	Load(inputStream);
-	std::ifstream levelStream("GameLevelExample.json");
-	Load(levelStream);
+	GameLoop();
 	std::cout << "Engine Initialized" << std::endl;
 }
 void Engine::Destroy()
 {
-	renderSystem->Destroy();
-	inputManager->Destroy();
-	assetManager->Destroy();
-	sceneManager->Destroy();
 
+	delete renderSystem;
+	delete inputManager;
+	delete assetManager;
+	delete sceneManager;
 	std::cout << "Engine Destroyed" << std::endl;
 }
 void Engine::GameLoop()
 {
-	while (true) {
+	int i = 0;
+	while (i<5) {
 		inputManager->Update();
 		sceneManager->Update();
 		renderSystem->Update();
 		assetManager->Update();
+		i++;
+		std::cout<<"GameLoop"<<std::endl;
 	}
 }
 void Engine::Load(std::ifstream& inputStream)
@@ -82,7 +80,6 @@ void Engine::Load(std::ifstream& inputStream)
 	}
 	if (document.hasKey("SceneManager"))
 	{
-		json::JSON sManager = document["SceneManager"];
-		sceneManager->Load(sManager);
+		sceneManager->Load(document);
 	}
 }
