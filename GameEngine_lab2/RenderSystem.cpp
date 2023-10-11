@@ -34,9 +34,9 @@ void RenderSystem::Initialize()
 	// Create SDL window
 	window = SDL_CreateWindow("SDL Example",
 		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		height,
+		SDL_WINDOWPOS_UNDEFINED, 
 		width,
+		height,
 		0);
 	if (!window) {
 		std::cout << "Failed to create SDL window: " << SDL_GetError() << std::endl;
