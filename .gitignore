@@ -1,6 +1,7 @@
 
 
 #Build results
+/.vs/
 /x64/
 /x86/
 GameEngine_lab2/x64/
