@@ -33,8 +33,6 @@ void Engine::Initialize()
 	inputManager->Initialize();
 	assetManager->Initialize();
 	sceneManager->Initialize();
-
-	GameLoop();
 	std::cout << "Engine Initialized" << std::endl;
 }
 void Engine::Destroy()
@@ -48,14 +46,14 @@ void Engine::Destroy()
 }
 void Engine::GameLoop()
 {
-	int i = 0;
-	while (i<5) {
+	
+	for (int i = 0;i < 5;i++)
+	{
 		inputManager->Update();
 		sceneManager->Update();
 		renderSystem->Update();
 		assetManager->Update();
-		i++;
-		std::cout<<"GameLoop"<<std::endl;
+		std::cout<<"GameLoop "<<i+1<<" times" << std::endl;
 	}
 }
 void Engine::Load(std::ifstream& inputStream)
